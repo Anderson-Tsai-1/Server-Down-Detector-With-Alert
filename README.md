@@ -15,7 +15,15 @@ You need
 
 The cloud VM has a web server. It essentially is the brain for this alert system and needs to be running 24/7. I chose to use an Oracle free VM because it almost never it only goes down except for server migration and dangerous weather. Both of which you will receive emails ahead of time from Oracle. Every second, the node you want to be monitored sends a post to the cloud VM's web server. If the node does not send a post request for 20 seconds, the node is considered to have failed. If a certain number of nodes have failed in 1 hour, an alert call will be placed. 
 When a node shuts down, it sends a post request to a local machine (the SBC) as a proxy using socat, which is then redirected to the cloud VM web server. This is how the server knows this is not an unscheduled shutdown. 
+
 The optional feature is the battery reporting. Since I operate a Proxmox cluster, this part may vary for you. I attached my APC UPS Backup battery to my SBC running the proxy. The SBC using apcupsd sends the status of the battery to the cloud VM every 5 seconds. When the power goes out and the backup battery is used the battery, the cloud VM receives this change in battery status, shuts down a list of Proxmox nodes using Proxmox API, then sends out an emergency call. 
-There is 3 different calls all with slightly different information if the internet goes out, if the power goes out, and one in general.
+There is 3 different calls, all with slightly different information: if the internet goes out, if the power goes out, and one in general.
 
 The special part was how I got the nodes to send out a POST request on shutdown. I exited the systemctl systemd-networkd.service file directly and an ExecStop command. Weirdly enough, the tailscale network adapter would shut down before the LAN adapter shut down, resulting in the need for the local proxies. 
+
+For me, I use this for my Proxmox cluster and have a LXC run the scripts, but it should work on other types of Linux machines.
+
+# How to Set it UP!
+1. Make a Twilio Account, get your number, tokens, etc
+2. Make a Tailscale account
+

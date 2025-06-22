@@ -354,7 +354,7 @@ def monitor_hosts():
 
                     print("[ACTION] Battery is not ONLINE for 5 seconds. Initiating shutdown of all nodes.")
                     try:
-                        shutdown_results = shutdown_nodes(["steinsgate", "tree1", "tree2", "tree3", "tree4", "tree5", "tree0"])
+                        shutdown_results = shutdown_nodes(list(ip_index.values()))
                         print(f"[INFO] Shutdown results: {shutdown_results}")
                     except Exception as e:
                         print(f"[ERROR] Shutdown nodes failed: {e}")

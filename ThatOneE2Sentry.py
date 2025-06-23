@@ -37,6 +37,7 @@ from_number = os.getenv("FROM_NUMBER")
 to_number = os.getenv("TO_NUMBER")
 name = os.getenv("NAME")
 proxmox = os.getenv("PROXMOX")
+threshold = os.getenv("THRESHOLD")
 
 client = Client(account_sid, auth_token)
 
@@ -338,7 +339,7 @@ def monitor_hosts():
                 print("[INFO] Host status changed, resetting alert_sent flag")
                 alert_sent = False
 
-            if len(failed_hosts) >= 2 and battery_info['last_status'] in ['ONLINE', 'ONLINE LOWBATT', 'COMMLOST', 'SHUTTING DOWN']:
+            if len(failed_hosts) >= int(threshold) and battery_info['last_status'] in ['ONLINE', 'ONLINE LOWBATT', 'COMMLOST', 'SHUTTING DOWN']:
                 if not alert_sent and (now - max(info['failed_time'] for info in failed_hosts.values())) >= 10:
                     print(f"[INFO] Triggering alert for {len(failed_hosts)} failed hosts")
                     send_alert(list(failed_hosts.keys()), list(hosts.keys()), False , list(proxynodes.keys()))

@@ -96,4 +96,11 @@ Keep in mind you need a unit that will show up with `apcupsd` and have a serial 
 2. Edit `batterycheck.py` and replace 'serverip' with the actual IP
 3. Run the file
 
-   
+### Setup .env
+1. I honestly forgot how I got the Twilio tokens, ask GPT or youtube.
+2. FROM_NUMBER is your Twilio number
+3. TO_NUMBER is the number you want to call. Keep in mind you need to do some verification meaning you can only call that number unless you show your goverment ID but dont quote me
+4. NAME is what you want the program to refer to you as. IE: Hello NAME... when it calls you
+5. PROXMOX is the username you use to log into proxmox IE: `root@pam`
+6. PROXMOX_TOKEN_NAME is `root@pam!TOKENNAME`. TOKENNAME is the TOKEN ID when creating an API token.
+7. PROXMOX_TOKEN_VALUE is the proxmox API token secret. Datacenter > Permissions > API Tokens > Secret

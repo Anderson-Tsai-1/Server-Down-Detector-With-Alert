@@ -35,7 +35,7 @@ For me, I use this for my Proxmox cluster and have a LXC run the scripts, but it
 
 6. Install npm on the SBC, monitoring server, and the sever you want to be monitored
 `apt install npm`
-6a. Install pm2 on all machines
+7. Install pm2 on all machines
 `npm install pm2 -g`
 
 ## Installation
@@ -52,8 +52,8 @@ ALSO I kinda forgot the libraries I used, so just keep on doing pip install XXX 
 ### Monitoring Server
 1. Install `ThatOneE2Sentry.py` onto the monitoring server
 2. Edit `ip_index` in `ThatOneE2Sentry.py`
-2a. Every server you want to monitor along with all proxy servers you need to list it as `"Tailscale IP":"Host Name",` copy it as many times as you need
-3. Run the file
+3. Every server you want to monitor along with all proxy servers you need to list it as `"Tailscale IP":"Host Name",` copy it as many times as you need
+4. Run the file
 
 ### Individual Node
 1. Install `checkup.py` onto the node

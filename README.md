@@ -41,8 +41,8 @@ For me, I use this for my Proxmox cluster and have a LXC run the scripts, but it
 ## Installation
 
 Note: These python files are meant to be run perpetually and start on start up. To do this, do:
-1. pm2 start filename.py
-2. pm2 save
+1. `pm2 start filename.py`
+2. `pm2 save`
 
 When I say run the file, I am refering to this process
 

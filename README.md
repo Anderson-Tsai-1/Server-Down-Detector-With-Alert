@@ -14,10 +14,12 @@ You need
 8. (Optional) APC UPS Backup Battery
 
 The cloud VM has a python3 flask web server. It essentially is the brain for this alert system and needs to be running 24/7. I chose to use an Oracle free VM because it almost never it only goes down except for server migration and dangerous weather. Both of which you will receive emails ahead of time from Oracle. Every second, the nodes you want to be monitored sends a post request to the cloud VM's web server. If the node does not send a post request for 20 seconds, the node is considered to have failed. If a certain number of nodes have failed in 1 hour, an alert call will be placed. 
-When a node shuts down, it sends a post request to a local machine (the SBC) as a proxy using socat, which is then redirected to the cloud VM web server. This is how the server knows this is not an unscheduled shutdown. 
+When a node shuts down, it sends a post request to a local machine (the SBC) as a proxy using socat, which is then redirected to the cloud VM web server. This is how the server knows this is not an unscheduled shutdown. The program assumes that the SBC and the nodes you are watching over are on the same local network.
 
 The optional feature is the battery reporting. Since I operate a Proxmox cluster, this part may vary for you. I attached my APC UPS Backup battery to my SBC running the proxy. The SBC using apcupsd sends the status of the battery to the cloud VM every 5 seconds. When the power goes out and the backup battery is used the battery, the cloud VM receives this change in battery status, shuts down a list of Proxmox nodes using Proxmox API, then sends out an emergency call. 
 There is 3 different calls, all with slightly different information: if the internet goes out, if the power goes out, and one in general.
+
+There are 3 different calls you can recive based on the situation: General Node Failure, Power Outage, and Internet Outage. Currently, you are not alerted when you have less than 1 Proxy online.
 
 The special part was how I got the nodes to send out a POST request on shutdown. I exited the systemctl systemd-networkd.service file directly and an ExecStop command. Weirdly enough, the tailscale network adapter would shut down before the LAN adapter shut down, resulting in the need for the local proxies. 
 
@@ -26,7 +28,7 @@ For me, I use this for my Proxmox cluster and have a LXC run the scripts, but it
 Planned Features:
 1. Ability to call multiple numbers
 2. Add automatic messages for less urgent reminders such as X server is back online
-
+3. Send call when less than 1 Proxy is online
 
 # How to Set it UP!
 
@@ -106,6 +108,8 @@ Keep in mind you need a unit that will show up with `apcupsd` and have a serial 
 2. FROM_NUMBER is your Twilio number
 3. TO_NUMBER is the number you want to call. Keep in mind you need to do some verification meaning you can only call that number unless you show your goverment ID but dont quote me
 4. NAME is what you want the program to refer to you as. IE: Hello NAME... when it calls you
-5. PROXMOX is the username you use to log into proxmox IE: `root@pam`
-6. PROXMOX_TOKEN_NAME is `root@pam!TOKENNAME`. TOKENNAME is the TOKEN ID when creating an API token.
-7. PROXMOX_TOKEN_VALUE is the proxmox API token secret. Datacenter > Permissions > API Tokens > Secret
+5. THRESHHOLD is how many nodes do you want to fail before you recive a call
+6. PROXMOX is the username you use to log into proxmox IE: `root@pam`
+7. PROXMOX_TOKEN_NAME is `root@pam!TOKENNAME`. TOKENNAME is the TOKEN ID when creating an API token
+8. PROXMOX_TOKEN_VALUE is the proxmox API token secret. Datacenter > Permissions > API Tokens > Secret
+   

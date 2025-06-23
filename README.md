@@ -23,6 +23,11 @@ The special part was how I got the nodes to send out a POST request on shutdown.
 
 For me, I use this for my Proxmox cluster and have a LXC run the scripts, but it should work on other types of Linux machines.
 
+Planned Features:
+1. Ability to call multiple numbers
+2. Add automatic messages for less urgent reminders such as X server is back online
+
+
 # How to Set it UP!
 
 ## Set Up

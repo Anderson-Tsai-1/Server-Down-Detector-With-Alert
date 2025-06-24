@@ -1,0 +1,7 @@
+requests==2.25.1
+urllib3==1.26.5
+dotenv==0.9.9
+Flask==3.1.0
+twilio==9.6.0
+thread==2.0.5
+python-dotenv==1.1.0

@@ -8,7 +8,7 @@ You need
 2. A VM in the cloud (I used an Oracle machine)
 3. Tailscale
 4. Use systemd-networkd.service for your networking
-5. An SBC like an Raspberry PI (RPI)
+5. An SBC like a Raspberry PI (RPI)
 6. Twilio Account
 7. Access to the internet (Duh)
 8. (Optional) APC UPS Backup Battery
@@ -35,9 +35,9 @@ Planned Features:
 ## Set Up
 1. Make a Twilio Account, get your number, tokens, etc
 2. Make a Tailscale account
-3. Make Oracle account and the VM (This will be monitoring server)
+3. Make an Oracle account and the VM (This will be the monitoring server)
 4. Set up the SBC (Will be used as the proxy server)
-5. Install Tailscale on the SBC, monitoring server, and the sever you want to be monitored
+5. Install Tailscale on the SBC, monitoring server, and the server you want to be monitored
  `apt install npm`
 
 6. Install npm on the SBC, monitoring server, and the server you want to be monitored
@@ -57,10 +57,11 @@ ALSO I kinda forgot the libraries I used, so just keep on doing pip install XXX 
 
 
 ### Monitoring Server
-1. Install `ThatOneE2Sentry.py` onto the monitoring server
-2. Edit `ip_index` in `ThatOneE2Sentry.py`
-3. Every server you want to monitor, along with all proxy servers, you need to list it as `"Tailscale IP":"Host Name",` copy it as many times as you need
-4. Run the file
+1. Install `ThatOneE2Sentry.py` and `monitorpiprequirements.txt` onto the monitoring server
+2. `pip install -r monitorpiprequirements.txt`
+3. Edit `ip_index` in `ThatOneE2Sentry.py`
+4. For every server you want to monitor, along with all proxy servers, you need to list it as `"Tailscale IP":"Host Name",` copy it as many times as you need
+5. Run the file
 
 ### Individual Node
 1. Install `checkup.py` onto the node
@@ -75,11 +76,12 @@ ONLY CHANGE THE PARTS IN (CAPSLOCK)
 6. Reboot
 
 ### Proxy Server
-Note: You can use any Linux locally networked Linux device (Example: Octoprint PI) as long as the port is not taken
+Note: You can use any locally networked Linux device (Example: Octoprint PI) as long as the port is not taken
 1. Install `proxycheckup.py` onto the node
-2. Edit `proxycheckup.py` and replace 'serverip' with the actual IP
-3. Run the file
-4. Make a systemctl file, start, and enable
+2. `pip install requests` 
+3. Edit `proxycheckup.py` and replace 'serverip' with the actual IP
+4. Run the file
+5. Make a systemctl file, start, and enable
 ```
 [Unit]
 Description=Socat TCP Proxy from port 5000 to MONITORINGSERVER:5000
@@ -100,8 +102,9 @@ WantedBy=multi-user.target
 ### Optional Battery Monitor
 Keep in mind you need a unit that will show up with `apcupsd` and have a serial connection with the device
 1. Install `batterycheck.py` onto the node
-2. Edit `batterycheck.py` and replace 'serverip' with the actual IP
-3. Run the file
+2. `pip install requests` 
+3. Edit `batterycheck.py` and replace 'serverip' with the actual IP
+4. Run the file
 
 ### Setup .env
 1. I honestly forgot how I got the Twilio tokens, ask GPT or youtube.

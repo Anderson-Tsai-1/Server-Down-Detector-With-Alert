@@ -1,4 +1,7 @@
 # Server Down Detector With Alert (Only for Linux)
+
+In short this is a series of python programs that will call you if your Linux servers go offline longer than 20 seconds.
+
 I wanted a system to give me a notification when my servers go down. I opted for an actual call because I will not miss a phone call.
 Let's start off with why I made this. I made this because I accidentally brought down my cluster of servers twice. Once was my APC backup battery failed, and another was when I accidentally brought down my APC unbeknownst to me. I had conceived of this ages ago but didn't follow through. It was on the 2nd time I accidentally brought down the cluster that I began my work on this on May 6, 2025. I am now only uploading all this because School is finally done, and I ran out of excuses. ~~A good excuse was to thoroughly test it.~~
 

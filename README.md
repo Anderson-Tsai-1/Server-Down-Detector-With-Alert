@@ -28,9 +28,13 @@ The special part was how I got the nodes to send out a POST request on shutdown.
 
 For me, I use this for my Proxmox cluster and have an LXC run the scripts, but it should work on other types of Linux machines.
 
+To get tailscale working on a Proxmox LXC follow these directions 
+https://github.com/mossc001/Tailscale-LXC
+(Note to self hyperlink when on computer)
+
 Planned Features:
 1. Ability to call multiple numbers
-2. Add automatic messages for less urgent reminders, such as X server is back online
+2. Add automatic messages for less urgent reminders or updates, such as X server is back online
 3. Send a call when fewer than 1 Proxy is online
 
 # How to Set it UP!
@@ -56,8 +60,6 @@ Note: These python files are meant to be run perpetually and start on start up. 
 
 When I say run the file, I am referring to this process
 
-ALSO I kinda forgot the libraries I used, so just keep on doing pip install XXX til it works 🫠
-
 
 ### Monitoring Server
 1. Install `ThatOneE2Sentry.py` and `monitorpiprequirements.txt` onto the monitoring server
@@ -71,7 +73,7 @@ ALSO I kinda forgot the libraries I used, so just keep on doing pip install XXX 
 2. Edit `checkup.py` and replace 'serverip' with the actual IP
 3. Run the file
 4. `sudo nano /usr/lib/systemd/system/systemd-networkd.service`
-5. Add `ExecStop=/usr/bin/curl -X POST (LOCALIPPROXYSERVER1):5000/shutdown LOCALIPPROXYSERVER2:5100/shutdown -H "Content-Type: application/json" -d "{\"node_name\": \"(NODENAME)\"}"`
+5. Add `ExecStop=/usr/bin/curl -X POST (LOCALIPPROXYSERVER1):5000/shutdown (LOCALIPPROXYSERVER2):5100/shutdown -H "Content-Type: application/json" -d "{\"node_name\": \"(NODENAME)\"}"`
 It is required that you use the local IPs of the proxy server (I tried using the Tailscale IPs, but the Tailscale adapter shuts down first)
 In the example above, you can add more and more proxy servers for redundancy
 ONLY CHANGE THE PARTS IN (CAPSLOCK) 

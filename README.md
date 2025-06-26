@@ -28,9 +28,9 @@ The special part was how I got the nodes to send out a POST request on shutdown.
 
 For me, I use this for my Proxmox cluster and have an LXC run the scripts, but it should work on other types of Linux machines.
 
-To get tailscale working on a Proxmox LXC follow these directions 
+To get tailscale working on a Proxmox LXC follow these directions
 https://github.com/mossc001/Tailscale-LXC
-(Note to self hyperlink when on computer)
+
 
 Planned Features:
 1. Ability to call multiple numbers

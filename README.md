@@ -112,12 +112,13 @@ Keep in mind you need a unit that will show up with `apcupsd` and have a serial 
 4. Run the file
 
 ### Setup .env
-1. I honestly forgot how I got the Twilio tokens, ask GPT or youtube.
-2. FROM_NUMBER is your Twilio number
-3. TO_NUMBER is the number you want to call. Keep in mind you need to do some verification, meaning you can only call that number unless you show your government I,D but dont quote me
-4. NAME is what you want the program to refer to you as. IE: Hello NAME... when it calls you
-5. THRESHHOLD is how many nodes you want to fail before you receive a call
-6. PROXMOX is the username you use to log into Proxmox IE: `root@pam`
-7. PROXMOX_TOKEN_NAME is `root@pam!TOKENNAME`. TOKENNAME is the TOKEN ID when creating an API token
-8. PROXMOX_TOKEN_VALUE is the Proxmox API token secret. Datacenter > Permissions > API Tokens > Secret
+1. TWILIO_ACCOUNT_SID is your API key SID
+2. TWILIO_AUTH_TOKEN is the API secret
+3. FROM_NUMBER is your Twilio number
+4. TO_NUMBER is the number you want to call. Keep in mind you need to do some verification, meaning you can only call that number unless you show your government I,D but dont quote me
+5. NAME is what you want the program to refer to you as. IE: Hello NAME... when it calls you
+6. THRESHHOLD is how many nodes you want to fail before you receive a call
+7. PROXMOX is the username you use to log into Proxmox IE: `root@pam`
+8. PROXMOX_TOKEN_NAME is `root@pam!TOKENNAME`. TOKENNAME is the TOKEN ID when creating an API token
+9. PROXMOX_TOKEN_VALUE is the Proxmox API token secret. Datacenter > Permissions > API Tokens > Secret
    
